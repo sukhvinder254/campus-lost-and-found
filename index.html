@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="K.R. Mangalam University Campus Lost & Found Portal — Report, search, and recover lost items across campus." />
+  <meta name="author" content="Team Code Nemesis, B.Tech CSE, KRMU" />
+  <meta name="theme-color" content="#1B3464" />
+  <title>Campus Lost &amp; Found | K.R. Mangalam University</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     TOP BAR
+     ══════════════════════════════════════════ -->
+<div class="top-bar">
+  <div class="inner">
+    <div>
+      <a href="https://www.krmangalam.edu.in" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-university"></i> K.R. Mangalam University
+      </a>
+      <a href="https://lms.krmangalam.edu.in" target="_blank" rel="noopener noreferrer">LMS</a>
+      <a href="https://krmu.icloudems.com"    target="_blank" rel="noopener noreferrer">ERP</a>
+      <a href="https://www.krmangalam.edu.in/contact-us" target="_blank" rel="noopener noreferrer">Contact</a>
+    </div>
+    <div class="socials">
+      <a href="https://www.facebook.com/krmuniv"  target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/krmuniv" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://in.linkedin.com/school/krmuniv" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/channel/UCrlCJyhEISXJU1SGYFcFmjA" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="tel:8192888444" class="top-bar-phone"><i class="fas fa-phone"></i> 8192888444</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HEADER / NAVIGATION
+     ══════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <div class="logo-area" onclick="showPage('home')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showPage('home');}" role="link" aria-label="Go to Home" tabindex="0">
+      <div class="logo-icon"><i class="fas fa-search-location" aria-hidden="true"></i></div>
+      <div class="logo-text">
+        <div class="uni">K.R. Mangalam University</div>
+        <div class="app">Lost &amp; Found Portal</div>
+      </div>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav id="desktopNav" aria-label="Main Navigation">
+      <button class="nav-btn" data-page="home"         onclick="showPage('home')">Home</button>
+      <button class="nav-btn" data-page="browse"       onclick="showPage('browse')">Browse Items</button>
+      <button class="nav-btn" data-page="report-lost"  onclick="showPage('report-lost')">Report Lost</button>
+      <button class="nav-btn" data-page="report-found" onclick="showPage('report-found')">Report Found</button>
+      <button class="nav-btn" data-page="about"        onclick="showPage('about')">About</button>
+      <a href="admin.php" class="nav-btn" id="adminNavLink" style="display:none;color:var(--gold);font-weight:600;"><i class="fas fa-shield-alt"></i>&nbsp;Admin</a>
+      <button class="nav-btn nav-cta" id="loginBtn" onclick="openAuth()" aria-label="Login or Register">
+        <i class="fas fa-user" id="loginIcon" aria-hidden="true"></i>
+        <span id="loginBtnText">Login</span>
+      </button>
+    </nav>
+
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<nav class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+  <button class="nav-btn" onclick="showPage('home');closeMobile()">🏠&nbsp; Home</button>
+  <button class="nav-btn" onclick="showPage('browse');closeMobile()">📋&nbsp; Browse Items</button>
+  <div class="mobile-menu-divider"></div>
+  <button class="nav-btn" onclick="showPage('report-lost');closeMobile()">🔴&nbsp; Report Lost Item</button>
+  <button class="nav-btn" onclick="showPage('report-found');closeMobile()">🔵&nbsp; Report Found Item</button>
+  <div class="mobile-menu-divider"></div>
+  <button class="nav-btn" onclick="showPage('about');closeMobile()">ℹ️&nbsp; About</button>
+  <a href="admin.php" class="nav-btn" id="adminMobileLink" style="display:none;color:var(--gold);font-weight:600;">🛡️&nbsp; Admin Dashboard</a>
+  <button class="nav-btn nav-cta" onclick="openAuth();closeMobile()">
+    <i class="fas fa-user" aria-hidden="true"></i>&nbsp; Login / Register
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+     ══════════════════════════════════════════ -->
+<main>
+<div id="home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Hero Section">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          KRMU Official Portal &middot; Team Code Nemesis
+        </div>
+        <h1>Reuniting Campus<br>Community with Their<br><span>Lost Belongings</span></h1>
+        <p>
+          A centralised digital platform for students, faculty, and staff to
+          report, search, and recover lost &amp; found items across K.R. Mangalam
+          University campus — fast, easy, and free.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('report-lost')">
+            <i class="fas fa-exclamation-circle" aria-hidden="true"></i> I Lost Something
+          </button>
+          <button class="btn-secondary" onclick="showPage('report-found')">
+            <i class="fas fa-hand-holding-heart" aria-hidden="true"></i> I Found Something
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="num" id="stat-total">0</div>
+            <div class="lbl">Items Posted</div>
+          </div>
+          <div class="stat-item">
+            <div class="num" id="stat-found-count">0</div>
+            <div class="lbl">Found Items</div>
+          </div>
+          <div class="stat-item">
+            <div class="num" id="stat-recovered">0</div>
+            <div class="lbl">Items Recovered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Search Card -->
+      <div class="hero-card" aria-label="Quick Search">
+        <h3><i class="fas fa-search" aria-hidden="true"></i>&nbsp; Quick Search</h3>
+        <div class="quick-search-bar">
+          <input type="text" id="heroSearch" placeholder="Search item name…" aria-label="Quick search input" />
+          <button onclick="quickSearch()" aria-label="Search"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+        <p class="search-hint">Popular searches:</p>
+        <div class="tag-cloud" role="list">
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('ID Card')"  onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('ID Card');}">ID Card</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Wallet')"   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Wallet');}">Wallet</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Mobile')"   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Mobile');}">Mobile</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Laptop')"   onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Laptop');}">Laptop</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Keys')"     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Keys');}">Keys</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Charger')"  onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Charger');}">Charger</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Bag')"      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Bag');}">Bag</span>
+          <span class="tag" role="listitem" tabindex="0" onclick="tagSearch('Watch')"    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tagSearch('Watch');}">Watch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section section-alt" aria-labelledby="how-it-works-title">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title" id="how-it-works-title">Simple Steps to Recover Your Items</h2>
+        <p class="section-desc">Our streamlined process ensures your belongings are returned quickly and securely.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">📝</div>
+          <h3>Create an Account</h3>
+          <p>Register with your university email and student/staff ID to access all portal features securely.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">📣</div>
+          <h3>Post Your Item</h3>
+          <p>Fill in details like item name, category, location, date, and a clear description with identifying features.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">🔍</div>
+          <h3>Search &amp; Browse</h3>
+          <p>Use our powerful filters — by category, location, or keyword — to find your belongings quickly.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-icon">🤝</div>
+          <h3>Connect &amp; Collect</h3>
+          <p>Contact the poster via email, arrange a safe campus pickup, and mark the item as resolved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Items -->
+  <section class="section" aria-labelledby="recent-title">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label">Recent Activity</div>
+        <h2 class="section-title" id="recent-title">Latest Lost &amp; Found Items</h2>
+        <p class="section-desc">Browse the most recently posted items. Click any card to see full details.</p>
+      </div>
+      <div class="items-grid" id="homeItemsGrid" aria-label="Recent Items"></div>
+      <div class="section-cta">
+        <button class="btn-primary btn-center" onclick="showPage('browse')">
+          <i class="fas fa-th-large" aria-hidden="true"></i> View All Items
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end #home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: BROWSE
+     ══════════════════════════════════════════ -->
+<div id="browse" class="page">
+  <section class="section" aria-labelledby="browse-title">
+    <div class="section-inner">
+      <div class="browse-head">
+        <div class="section-label">Item Database</div>
+        <h2 class="section-title browse-title" id="browse-title">Browse All Items</h2>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar" role="search" aria-label="Filter items">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍  Search by name, category, or description…"
+          oninput="debouncedRender()"
+          onkeydown="if(event.key==='Enter')renderBrowse()"
+          aria-label="Search items"
+        />
+        <select id="categoryFilter" onchange="renderBrowse()" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option>Electronics</option>
+          <option>Documents &amp; ID</option>
+          <option>Bags &amp; Accessories</option>
+          <option>Clothing</option>
+          <option>Books &amp; Notes</option>
+          <option>Keys &amp; Cards</option>
+          <option>Other</option>
+        </select>
+        <select id="locationFilter" onchange="renderBrowse()" aria-label="Filter by location">
+          <option value="">All Locations</option>
+          <option>Library</option>
+          <option>Cafeteria</option>
+          <option>Block A</option>
+          <option>Block B</option>
+          <option>Block C</option>
+          <option>Hostel</option>
+          <option>Sports Complex</option>
+          <option>Parking Area</option>
+        </select>
+        <button class="clear-btn" onclick="clearFilters()" aria-label="Clear all filters">
+          <i class="fas fa-times" aria-hidden="true"></i> Clear
+        </button>
+      </div>
+
+      <!-- Type Tabs & Count -->
+      <div class="browse-top">
+        <div class="tab-filters" role="tablist" aria-label="Filter by type">
+          <button class="tab-filter active"   data-type="all"   onclick="setTypeFilter('all',this)"   role="tab" aria-selected="true">All Items</button>
+          <button class="tab-filter tab-lost" data-type="lost"  onclick="setTypeFilter('lost',this)"  role="tab" aria-selected="false">Lost Items</button>
+          <button class="tab-filter"          data-type="found" onclick="setTypeFilter('found',this)" role="tab" aria-selected="false">Found Items</button>
+        </div>
+        <div class="item-count-label" id="itemCountLabel" aria-live="polite"></div>
+      </div>
+
+      <!-- Items Grid -->
+      <div class="items-grid" id="browseGrid" aria-label="Browse items grid"></div>
+    </div>
+  </section>
+</div><!-- end #browse -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: REPORT LOST
+     ══════════════════════════════════════════ -->
+<div id="report-lost" class="page">
+  <div class="form-page">
+    <div class="form-container" role="main" aria-labelledby="report-lost-title">
+      <div class="form-header orange-header">
+        <div class="icon" aria-hidden="true">😟</div>
+        <h2 id="report-lost-title">Report a Lost Item</h2>
+        <p>Fill in the details below so others can help you find your belonging. Be as specific as possible.</p>
+      </div>
+      <div class="form-body">
+
+        <div class="form-login-notice" id="lost-login-notice">
+          <i class="fas fa-info-circle"></i> You must be <a href="#" onclick="openAuth();return false;">logged in</a> to submit a report. Your name and email will be auto-filled from your account.
+        </div>
+
+        <!-- Item & Category -->
+        <div class="form-row">
+          <div class="form-group" id="fg-li">
+            <label for="lost-item">Item Name <span class="req" aria-label="required">*</span></label>
+            <input type="text" id="lost-item" placeholder="e.g. Blue wallet" />
+            <div class="err-msg" role="alert">Please enter the item name.</div>
+          </div>
+          <div class="form-group" id="fg-lcat">
+            <label for="lost-category">Category <span class="req" aria-label="required">*</span></label>
+            <select id="lost-category">
+              <option value="">Select category</option>
+              <option>Electronics</option>
+              <option>Documents &amp; ID</option>
+              <option>Bags &amp; Accessories</option>
+              <option>Clothing</option>
+              <option>Books &amp; Notes</option>
+              <option>Keys &amp; Cards</option>
+              <option>Other</option>
+            </select>
+            <div class="err-msg" role="alert">Please select a category.</div>
+          </div>
+        </div>
+
+        <!-- Location & Date -->
+        <div class="form-row">
+          <div class="form-group" id="fg-lloc">
+            <label for="lost-location">Last Seen Location <span class="req" aria-label="required">*</span></label>
+            <select id="lost-location">
+              <option value="">Select location</option>
+              <option>Library</option>
+              <option>Cafeteria</option>
+              <option>Block A</option>
+              <option>Block B</option>
+              <option>Block C</option>
+              <option>Hostel</option>
+              <option>Sports Complex</option>
+              <option>Parking Area</option>
+              <option>Other</option>
+            </select>
+            <div class="err-msg" role="alert">Please select a location.</div>
+          </div>
+          <div class="form-group" id="fg-ldt">
+            <label for="lost-date">Date Lost <span class="req" aria-label="required">*</span></label>
+            <input type="date" id="lost-date" />
+            <div class="err-msg" role="alert">Please pick a valid date (cannot be in the future).</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group" id="fg-ldesc">
+          <label for="lost-desc">Description <span class="req" aria-label="required">*</span></label>
+          <textarea id="lost-desc" placeholder="Describe colour, brand, unique marks, or any identifying features…"></textarea>
+          <div class="hint">Be as specific as possible — minimum 10 characters. Include brand, colour, or any markings.</div>
+          <div class="err-msg" role="alert">Please describe the item (minimum 10 characters).</div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label for="lost-image">Upload Photo <span style="font-weight:400;color:var(--gray);">(optional)</span></label>
+          <input type="file" id="lost-image" accept="image/jpeg,image/png,image/gif,image/webp" onchange="previewImage(this,'lost-image-preview')" class="file-input" />
+          <div class="hint">JPG, PNG, GIF, or WebP — max 5 MB</div>
+          <div id="lost-image-preview" class="image-preview-container"></div>
+        </div>
+
+        <button class="submit-btn orange" onclick="submitLost()">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i> Submit Lost Report
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div><!-- end #report-lost -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: REPORT FOUND
+     ══════════════════════════════════════════ -->
+<div id="report-found" class="page">
+  <div class="form-page">
+    <div class="form-container" role="main" aria-labelledby="report-found-title">
+      <div class="form-header">
+        <div class="icon" aria-hidden="true">🎉</div>
+        <h2 id="report-found-title">Report a Found Item</h2>
+        <p>Help reunite someone with their belonging. Fill in the details of what you found.</p>
+      </div>
+      <div class="form-body">
+
+        <div class="form-login-notice" id="found-login-notice">
+          <i class="fas fa-info-circle"></i> You must be <a href="#" onclick="openAuth();return false;">logged in</a> to submit a report. Your name and email will be auto-filled from your account.
+        </div>
+
+        <!-- Item & Category -->
+        <div class="form-row">
+          <div class="form-group" id="fg-fi">
+            <label for="found-item">Item Name <span class="req" aria-label="required">*</span></label>
+            <input type="text" id="found-item" placeholder="e.g. Black umbrella" />
+            <div class="err-msg" role="alert">Please enter the item name.</div>
+          </div>
+          <div class="form-group" id="fg-fcat">
+            <label for="found-category">Category <span class="req" aria-label="required">*</span></label>
+            <select id="found-category">
+              <option value="">Select category</option>
+              <option>Electronics</option>
+              <option>Documents &amp; ID</option>
+              <option>Bags &amp; Accessories</option>
+              <option>Clothing</option>
+              <option>Books &amp; Notes</option>
+              <option>Keys &amp; Cards</option>
+              <option>Other</option>
+            </select>
+            <div class="err-msg" role="alert">Please select a category.</div>
+          </div>
+        </div>
+
+        <!-- Location & Date -->
+        <div class="form-row">
+          <div class="form-group" id="fg-floc">
+            <label for="found-location">Found Location <span class="req" aria-label="required">*</span></label>
+            <select id="found-location">
+              <option value="">Select location</option>
+              <option>Library</option>
+              <option>Cafeteria</option>
+              <option>Block A</option>
+              <option>Block B</option>
+              <option>Block C</option>
+              <option>Hostel</option>
+              <option>Sports Complex</option>
+              <option>Parking Area</option>
+              <option>Other</option>
+            </select>
+            <div class="err-msg" role="alert">Please select a location.</div>
+          </div>
+          <div class="form-group" id="fg-fdt">
+            <label for="found-date">Date Found <span class="req" aria-label="required">*</span></label>
+            <input type="date" id="found-date" />
+            <div class="err-msg" role="alert">Please pick a valid date (cannot be in the future).</div>
+          </div>
+        </div>
+
+        <!-- Currently Held At -->
+        <div class="form-group">
+          <label for="found-holding">Currently Held At</label>
+          <input type="text" id="found-holding" placeholder="e.g. DSW Office / Keeping with me" />
+          <div class="hint">Let the owner know where they can collect it from.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group" id="fg-fdesc">
+          <label for="found-desc">Description <span class="req" aria-label="required">*</span></label>
+          <textarea id="found-desc" placeholder="Describe colour, brand, unique marks, or any identifying features…"></textarea>
+          <div class="hint">Include any distinctive features so the owner can verify it's theirs.</div>
+          <div class="err-msg" role="alert">Please describe the item (minimum 10 characters).</div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label for="found-image">Upload Photo <span style="font-weight:400;color:var(--gray);">(optional)</span></label>
+          <input type="file" id="found-image" accept="image/jpeg,image/png,image/gif,image/webp" onchange="previewImage(this,'found-image-preview')" class="file-input" />
+          <div class="hint">JPG, PNG, GIF, or WebP — max 5 MB</div>
+          <div id="found-image-preview" class="image-preview-container"></div>
+        </div>
+
+        <button class="submit-btn" onclick="submitFound()">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i> Submit Found Report
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div><!-- end #report-found -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ABOUT
+     ══════════════════════════════════════════ -->
+<div id="about" class="page">
+
+  <div class="about-hero">
+    <div class="section-label section-label--gold">Minor Project &middot; Code Nemesis &middot; Team 26E1152</div>
+    <h1>About This Portal</h1>
+    <p>
+      A web application by B.Tech CSE students of K.R. Mangalam University designed to solve
+      a real everyday campus problem — lost &amp; found item management — using modern web technology.
+    </p>
+  </div>
+
+  <section class="section section-alt" aria-labelledby="overview-title">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label">Project Overview</div>
+        <h2 class="section-title" id="overview-title">Why We Built This</h2>
+        <p class="section-desc">Replacing unreliable notice boards and word-of-mouth with a centralised, searchable digital platform.</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="ic-icon">🎯</div>
+          <h3>Problem Statement</h3>
+          <p>Students and staff frequently misplace belongings across classrooms, labs, the library, and hostels, with no structured system to report or track lost items on campus.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">💡</div>
+          <h3>Our Solution</h3>
+          <p>A web platform where users can post lost/found items, search by keyword, category, or location, and connect directly — all in one centralised, free, accessible system.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🛠️</div>
+          <h3>Tech Stack</h3>
+          Built with HTML5, CSS3 &amp; vanilla JavaScript for the frontend, PHP for backend logic, and MySQL for data persistence — deployed locally via XAMPP.
+          <div class="tech-badges">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">PHP</span>
+            <span class="tech-badge">MySQL</span>
+            <span class="tech-badge">XAMPP</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">✅</div>
+          <h3>Key Features</h3>
+          <p>User authentication, item posting with categories &amp; locations, keyword &amp; filter search, claim verification, email-based contact, and mobile-friendly responsive design.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="section" aria-labelledby="team-title">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-label">The Team</div>
+        <h2 class="section-title" id="team-title">Code Nemesis</h2>
+        <p class="section-desc">B.Tech CSE-D, Section 26E1152 &middot; School of Engineering &amp; Technology, KRMU</p>
+      </div>
+
+      <!-- Supervisor -->
+      <div class="supervisor-card">
+        <div class="supervisor-emoji" aria-hidden="true">👨‍🏫</div>
+        <h4>Mr. Anurag Singh</h4>
+        <p>Project Supervisor &middot; Department of Computer Science &amp; Engineering</p>
+        <p class="supervisor-subtitle">School of Engineering &amp; Technology, K.R. Mangalam University</p>
+      </div>
+
+      <!-- Team Members -->
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">SK</div>
+          <h4>Shreshth Kumar Chaudhary</h4>
+          <p>2501010080</p>
+          <p class="role">Frontend</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">MK</div>
+          <h4>Muskan Kumari Singh</h4>
+          <p>2501010265</p>
+          <p class="role">UI Design / Frontend</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">SK</div>
+          <h4>Shreyansh Kumar</h4>
+          <p>2501010019</p>
+          <p class="role">Backend / Database</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">SK</div>
+          <h4>Sukhvinder Kaur</h4>
+          <p>2501010272</p>
+          <p class="role">Testing / Docs</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">SM</div>
+          <h4>Suman Mishra</h4>
+          <p>2501010308</p>
+          <p class="role">Backend / PHP</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" aria-hidden="true">AK</div>
+          <h4>Arman Kumar</h4>
+          <p>2501010024</p>
+          <p class="role">Database / MySQL</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end #about -->
+</main>
+
+
+<!-- ══════════════════════════════════════════
+     ITEM DETAIL MODAL
+     ══════════════════════════════════════════ -->
+<div class="modal-overlay" id="itemModal" role="dialog" aria-modal="true" aria-label="Item details">
+  <div class="modal" id="itemModalBody"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     AUTH MODAL
+     ══════════════════════════════════════════ -->
+<div class="modal-overlay" id="authModal" onclick="closeAuthOverlay(event)" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+  <div class="modal auth-modal">
+    <div class="auth-modal-hdr">
+      <div>
+        <h2 id="auth-modal-title">Welcome</h2>
+        <p>K.R. Mangalam University &middot; Lost &amp; Found Portal</p>
+      </div>
+      <button class="modal-close" onclick="closeAuth()" aria-label="Close login modal">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="auth-modal-body">
+      <div class="modal-tabs" role="tablist">
+        <button class="modal-tab active" onclick="switchTab('login')"    role="tab" aria-selected="true">Sign In</button>
+        <button class="modal-tab"        onclick="switchTab('register')" role="tab" aria-selected="false">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="auth-email">University Email</label>
+          <input type="email" id="auth-email" placeholder="yourname@krmangalam.edu.in"
+            onkeydown="if(event.key==='Enter')doLogin()" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="auth-pass">Password</label>
+          <input type="password" id="auth-pass" placeholder="Enter your password"
+            onkeydown="if(event.key==='Enter')doLogin()" autocomplete="current-password" />
+        </div>
+        <button class="auth-submit" onclick="doLogin()">
+          Sign In &nbsp;<i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <p class="auth-note">
+          <i class="fas fa-info-circle" aria-hidden="true"></i>
+          Sign in with your registered university email and password.
+        </p>
+      </div>
+
+      <!-- Register Form -->
+      <div id="registerForm" class="auth-form" style="display:none">
+        <div class="form-group">
+          <label for="auth-rname">Full Name</label>
+          <input type="text" id="auth-rname" placeholder="Your full name" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="auth-remail">University Email</label>
+          <input type="email" id="auth-remail" placeholder="yourname@krmangalam.edu.in" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="auth-rid">Student / Staff ID</label>
+          <input type="text" id="auth-rid" placeholder="e.g. 2501010080" />
+        </div>
+        <div class="form-group">
+          <label for="auth-rpass">
+            Password <span class="form-label-hint">(min 6 characters)</span>
+          </label>
+          <input type="password" id="auth-rpass" placeholder="Create a password"
+            onkeydown="if(event.key==='Enter')doRegister()" autocomplete="new-password" />
+        </div>
+        <button class="auth-submit" onclick="doRegister()">
+          Create Account &nbsp;<i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TOAST NOTIFICATION
+     ══════════════════════════════════════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <i id="toastIcon" class="fas fa-info-circle" aria-hidden="true"></i>
+  <span id="toastMsg"></span>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="app-name">📍 Campus Lost &amp; Found Portal</div>
+        <p>
+          A student-developed platform to streamline lost and found item management at
+          K.R. Mangalam University, Gurugram. Built by Team Code Nemesis as a B.Tech Minor Project.
+        </p>
+        <div class="krmu-tag">🏫 K.R. Mangalam University, Gurugram &ndash; 122001, Haryana</div>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a role="button" tabindex="0" onclick="showPage('home')"         onkeydown="if(event.key==='Enter')showPage('home')">Home</a></li>
+          <li><a role="button" tabindex="0" onclick="showPage('browse')"       onkeydown="if(event.key==='Enter')showPage('browse')">Browse Items</a></li>
+          <li><a role="button" tabindex="0" onclick="showPage('report-lost')"  onkeydown="if(event.key==='Enter')showPage('report-lost')">Report Lost</a></li>
+          <li><a role="button" tabindex="0" onclick="showPage('report-found')" onkeydown="if(event.key==='Enter')showPage('report-found')">Report Found</a></li>
+          <li><a role="button" tabindex="0" onclick="showPage('about')"        onkeydown="if(event.key==='Enter')showPage('about')">About Project</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>University</h4>
+        <ul>
+          <li><a href="https://www.krmangalam.edu.in"                     target="_blank" rel="noopener noreferrer">KRMU Website</a></li>
+          <li><a href="https://lms.krmangalam.edu.in"                     target="_blank" rel="noopener noreferrer">LMS Portal</a></li>
+          <li><a href="https://krmu.icloudems.com"                        target="_blank" rel="noopener noreferrer">ERP Portal</a></li>
+          <li><a href="https://www.krmangalam.edu.in/student-welfare"     target="_blank" rel="noopener noreferrer">DSW Office</a></li>
+          <li><a href="https://www.krmangalam.edu.in/contact-us"          target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>
+        &copy; 2026 Campus Lost &amp; Found &mdash;
+        <span class="hi">Code Nemesis</span> &middot; B.Tech CSE-D &middot; KRMU
+      </span>
+      <span>Supervised by <span class="hi">Mr. Anurag Singh</span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     APP SCRIPT  (placed at end for fast DOM load)
+     ══════════════════════════════════════════ -->
+<script src="app.js"></script>
+
+</body>
+</html>

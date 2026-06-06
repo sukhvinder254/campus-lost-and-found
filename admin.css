@@ -1,0 +1,353 @@
+/* ═══════════════════════════════════════════════════════════
+   KRMU Campus Lost & Found — Admin Dashboard Styles
+   Team Code Nemesis | B.Tech CSE | K.R. Mangalam University
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Admin Layout ── */
+.admin-wrapper {
+  min-height: 100vh;
+  background: #f1f3f8;
+  font-family: 'DM Sans', sans-serif;
+  color: #2d3748;
+}
+
+.admin-topbar {
+  background: linear-gradient(135deg, #122347 0%, #1B3464 50%, #254a8f 100%);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(18,35,71,0.25);
+}
+
+.admin-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-topbar-left .admin-logo {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, #E8441E, #f05a3a);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff;
+}
+
+.admin-topbar-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.admin-topbar-left h1 span {
+  color: #F5A623;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-topbar-right a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+.admin-topbar-right a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+.admin-user-badge {
+  background: rgba(245,166,35,0.15) !important;
+  border: 1px solid rgba(245,166,35,0.35) !important;
+  color: #F5A623 !important;
+  font-weight: 600;
+}
+
+.admin-topbar-right .btn-logout {
+  background: rgba(232,68,30,0.15);
+  border: 1px solid rgba(232,68,30,0.35);
+  color: #f05a3a;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.admin-topbar-right .btn-logout:hover {
+  background: #E8441E;
+  color: #fff;
+}
+
+/* ── Main Content Area ── */
+.admin-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 28px;
+}
+
+.admin-page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #1B3464;
+  margin-bottom: 6px;
+}
+.admin-page-subtitle {
+  font-size: 14px;
+  color: #7a8499;
+  margin-bottom: 32px;
+}
+
+/* ── Stats Grid ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(27,52,100,0.07);
+  border: 1px solid #eef0f5;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27,52,100,0.12);
+}
+
+.stat-card.sc-users::before   { background: linear-gradient(180deg, #1B3464, #254a8f); }
+.stat-card.sc-total::before   { background: linear-gradient(180deg, #F5A623, #e89b1a); }
+.stat-card.sc-lost::before    { background: linear-gradient(180deg, #E8441E, #c0380f); }
+.stat-card.sc-found::before   { background: linear-gradient(180deg, #254a8f, #3b6ecc); }
+.stat-card.sc-active::before  { background: linear-gradient(180deg, #6366f1, #818cf8); }
+.stat-card.sc-resolved::before{ background: linear-gradient(180deg, #16a34a, #22c55e); }
+.stat-card.sc-recent::before  { background: linear-gradient(180deg, #06b6d4, #22d3ee); }
+
+.stat-card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.stat-card-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1B3464;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.stat-card-label {
+  font-size: 12.5px;
+  color: #7a8499;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ── Section Panels ── */
+.admin-panel {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(27,52,100,0.07);
+  border: 1px solid #eef0f5;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.admin-panel-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eef0f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-panel-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  color: #1B3464;
+}
+.admin-panel-header .badge {
+  background: #eef0f5;
+  color: #1B3464;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── Data Tables ── */
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.admin-table th {
+  background: #f8f9fb;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: #1B3464;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid #eef0f5;
+  white-space: nowrap;
+}
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f3f8;
+  color: #2d3748;
+  vertical-align: middle;
+}
+.admin-table tbody tr:hover {
+  background: #f8f9fb;
+}
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Table Badges ── */
+.t-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.t-badge-lost    { background: #fff3f0; color: #E8441E; }
+.t-badge-found   { background: #f0f7ff; color: #1B3464; }
+.t-badge-active  { background: #fffbe8; color: #b8860b; }
+.t-badge-claimed { background: #f0fdf4; color: #16a34a; }
+.t-badge-admin   { background: #fef3c7; color: #92400e; }
+.t-badge-user    { background: #eef0f5; color: #7a8499; }
+
+/* ── Action Buttons ── */
+.btn-action {
+  background: none;
+  border: 1.5px solid #dde1ec;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7a8499;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-action:hover {
+  border-color: #E8441E;
+  color: #E8441E;
+}
+.btn-action-danger {
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+.btn-action-danger:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+.btn-action-resolve {
+  border-color: #86efac;
+  color: #16a34a;
+}
+.btn-action-resolve:hover {
+  background: #16a34a;
+  color: #fff;
+  border-color: #16a34a;
+}
+
+/* ── Empty State ── */
+.admin-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: #7a8499;
+}
+.admin-empty i {
+  font-size: 40px;
+  opacity: 0.3;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ── Loading Spinner ── */
+.admin-loading {
+  text-align: center;
+  padding: 40px;
+  color: #7a8499;
+}
+.admin-loading i {
+  font-size: 28px;
+  animation: spin 1s linear infinite;
+  color: #1B3464;
+  margin-bottom: 12px;
+  display: block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .admin-topbar {
+    padding: 14px 18px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .admin-content {
+    padding: 20px 16px;
+  }
+  .admin-page-title {
+    font-size: 22px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .stat-card {
+    padding: 18px;
+  }
+  .stat-card-value {
+    font-size: 26px;
+  }
+  .admin-table {
+    font-size: 12px;
+  }
+  .admin-table th, .admin-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
